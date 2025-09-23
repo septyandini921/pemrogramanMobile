@@ -2,7 +2,6 @@ import 'dart:io';
 
 void main() {
   while (true) {
-    /// Tampilkan menu utama
     print("\n=== MENU UTAMA ===");
     print("1. Hitung Faktorial");
     print("2. Out");
@@ -10,33 +9,37 @@ void main() {
     String? pilihan = stdin.readLineSync();
 
     if (pilihan == "1") {
-      /// Menu hitung faktorial
-      stdout.write("Masukkan bilangan bulat positif: ");
-      String? input = stdin.readLineSync();
+      /// Perulangan dalam menu faktorial agar user bisa menghitung berulang kali
+      while (true) {
+        stdout.write("\nMasukkan bilangan bulat positif (atau ketik 'M' untuk kembali ke menu utama): ");
+        String? input = stdin.readLineSync();
 
-      try {
-        int n = int.parse(input!);
+        /// Jika input adalah 'M' maka kembali ke menu utama
+        if (input!.toUpperCase() == "M") break;
 
-        if (n < 0) {
+        try {
+          int n = int.parse(input);
+
           /// Validasi bilangan negatif
-          print("Tidak bisa menghitung faktorial dari bilangan negatif.");
-          continue;
-        }
-        /// Hitung faktorial
-        int hasil = 1;
-        for (int i = 1; i <= n; i++) {
-          hasil *= i;
-        }
+          if (n < 0) {
+            print("Tidak bisa menghitung faktorial dari bilangan negatif.");
+            continue;
+          }
 
-        /// Tampilkan hasil faktorial
-        print("Faktorial dari $n adalah $hasil");
-      } catch (e) {
-        /// Error handling jika input bukan angka
-        print("Input tidak valid, harap masukkan angka bulat.");
+          /// Hitung faktorial dengan for loop
+          int hasil = 1;
+          for (int i = 1; i <= n; i++) {
+            hasil *= i;
+          }
+
+          /// Tampilkan hasil faktorial
+          print("Faktorial dari $n adalah $hasil");
+        } catch (e) {
+          /// Input bukan angka
+          print("Input tidak valid, harap masukkan angka bulat.");
+        }
       }
-
     } else if (pilihan == "2") {
-      /// Keluar dari program
       print("\n=== Program selesai ===");
       break;
     } else {
