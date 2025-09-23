@@ -4,7 +4,6 @@ void main() {
   List<Map<String, dynamic>> riwayat = [];
 
   while (true) {
-    /// Menu utama diperluas dengan menu Formasi
     print("\n=== MENU UTAMA ===");
     print("1. Hitung Faktorial");
     print("2. Hitung Formasi");
@@ -43,20 +42,32 @@ void main() {
         }
       }
     } else if (pilihan == "2") {
-      /// Hitung formasi sederhana
-      stdout.write("Masukkan jumlah anggota: ");
-      String? input = stdin.readLineSync();
+      while (true) {
+        stdout.write("\nMasukkan jumlah anggota (atau ketik 'M' untuk kembali ke menu utama): ");
+        String? input = stdin.readLineSync();
 
-      try {
-        int n = int.parse(input!);
-        int hasil = 1;
-        for (int i = n; i >= 1; i--) {
-          hasil *= i;
+        if (input!.toUpperCase() == "M") break;
+
+        try {
+          int n = int.parse(input);
+          if (n < 0) {
+            print("Jumlah anggota tidak boleh negatif.");
+            continue;
+          }
+
+          /// Proses perhitungan formasi
+          int hasil = 1;
+          String proses = "";
+          for (int i = n; i >= 1; i--) {
+            hasil *= i;
+            proses += (i == 1) ? "$i" : "$i x ";
+          }
+
+          /// Tampilkan detail langkah perhitungan
+          print("Banyak formasi adalah $proses = $hasil");
+        } catch (e) {
+          print("Input tidak valid, harap masukkan angka bulat.");
         }
-        /// Tampilkan jumlah formasi
-        print("Banyak formasi adalah $hasil");
-      } catch (e) {
-        print("Input tidak valid, harap masukkan angka bulat.");
       }
 
     } else if (pilihan == "3") {
