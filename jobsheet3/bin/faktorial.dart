@@ -1,6 +1,9 @@
 import 'dart:io';
 
 void main() {
+  /// List untuk menyimpan riwayat faktorial
+  List<Map<String, dynamic>> riwayat = [];
+
   while (true) {
     print("\n=== MENU UTAMA ===");
     print("1. Hitung Faktorial");
@@ -9,33 +12,38 @@ void main() {
     String? pilihan = stdin.readLineSync();
 
     if (pilihan == "1") {
-      /// Perulangan dalam menu faktorial agar user bisa menghitung berulang kali
       while (true) {
         stdout.write("\nMasukkan bilangan bulat positif (atau ketik 'M' untuk kembali ke menu utama): ");
         String? input = stdin.readLineSync();
 
-        /// Jika input adalah 'M' maka kembali ke menu utama
         if (input!.toUpperCase() == "M") break;
 
         try {
           int n = int.parse(input);
 
-          /// Validasi bilangan negatif
           if (n < 0) {
             print("Tidak bisa menghitung faktorial dari bilangan negatif.");
             continue;
           }
 
-          /// Hitung faktorial dengan for loop
+          /// Perhitungan faktorial
           int hasil = 1;
           for (int i = 1; i <= n; i++) {
             hasil *= i;
           }
 
+          /// Simpan hasil ke riwayat
+          riwayat.add({"n": n, "hasil": hasil});
+
           /// Tampilkan hasil faktorial
           print("Faktorial dari $n adalah $hasil");
+
+          /// Tampilkan seluruh riwayat faktorial
+          print("\n=== Riwayat Faktorial ===");
+          for (var data in riwayat) {
+            print("${data['n']}! = ${data['hasil']}");
+          }
         } catch (e) {
-          /// Input bukan angka
           print("Input tidak valid, harap masukkan angka bulat.");
         }
       }
